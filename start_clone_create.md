@@ -117,8 +117,13 @@ If the agent responds, congratulations! The core conversational loop is working.
 ### Document Lessons Learned in the test project
 `document any deviations we made from the tasks outlined in @TASK by creating a lesson_{{issue_title}}.md file to use as lesson learned that I can apply to the github project I cloned this from.  The document should provide enough information for another coding agent to update the template and avoid this problem in the future.`
 
-`review the lesson_{{issue_title}}.md files and 1, verify the codebase addresses them adhereing to @gemini.md.  Then 2 update @PLANNING.md, @TASK.md, and @README.md so an AI coding assistant does not recreate these issue when using these files in a template.`
+`review the lesson_{{issue_title}}.md files and 1, verify the codebase addresses them adhereing to @gemini.md.  Then 2 update @PLANNING.md, @TASK.md, and @README.md so an AI coding assistant does not recreate these issues when using these files in a template.`
 ### Apply Lessons Learned to the _new_prj
 `i demonstrated the start_clone_create.md process and created a {{new project}} with learned lessons  here, https://github.com/PatrickHeaney/{{new project}}.git.  Add this repository as a submodule and examine it to help improve this process.`
 
-`fix the {{issue_title}} problem.`
+`Your task is to perform a upgrade on the _new_prj instructional template. The last usage of the template revealed lessons that need to be applied. Your
+goal is to fix these instructions based on the lessons learned from the ai_agent_test0103 project.
+
+First, add the successfully completed ai_agent_test0103 project as a new submodule. This will serve as a complete, working reference for the corrected implementation.
+
+git submodule add https://github.com/PatrickHeaney/ai_agent_test0103.git example_code/ai_agent_test0103`
