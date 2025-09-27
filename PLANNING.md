@@ -1,91 +1,37 @@
+# AI Agent Baseline Project Planning
 
-# AI Agent Mastery Project Planning
+This document outlines the plan for creating a baseline starting point for new AI agents. The project will follow an iterative development model.
 
-This document outlines the high-level design for building the MVP of our AI Agent Mastery agent built with Pydantic AI and based on our n8n agent prototype. This agent will have Agentic RAG capabilities, short term and long term memory, and the ability to search the internet, analyze images, and execute code it creates.
+## Iteration 1: The Core Conversation Loop
 
-We will be able to configure this agent to run entirely locally! There is not a separate agent for the local AI implementation like there is with n8n - that is one of the beauties of coding the agent ourself.
+*   **Goal**: Create the simplest possible, runnable agent.
+*   **Functionality**: A user can start the terminal UI, have a basic conversation with the agent (no tools, no memory), and the agent will respond using the LLM.
+*   **Testing**: Unit and user tests for agent/UI initialization to to validate.
 
-## System Architecture
+## System Architecture (Iteration 1)
 
-Our system will consist of the following components (more complex UI with React will come later):
+The initial architecture is minimal, focusing on the core conversation loop.
 
 ```
-                    +----------------+
-                    | Streamlit UI   |
-                    +--------+-------+
-                             |
-                    +--------v-------+
-                    |   AI Agent     |
-                    +--------+-------+
-                             |
-          +------------------+------------------+
-          |                  |                  |
-+---------v------+  +--------v-------+  +------v--------+
-| Document Store |  | Memory System  |  |  Agent Tools  |
-+---------+------+  +--------+-------+  +------+--------+
-          |                  |                  |
-          |         +--------v-------+          |
-          +-------->| Vector Database|<---------+
-                    +----------------+
++-------------+
+| Terminal UI |
++------+------+
+       |
++------v------+
+|   AI Agent  |
++-------------+
 ```
 
-### Key Components:
+### Key Components (Iteration 1):
 
-1. **Document Processing Pipeline**
-   - File type detection
-   - Text extraction (PDF, TXT, DOC, etc.)
-   - Tabular data handling (CSV, Excel)
-   - Chunking and embedding
-
-2. **Vector Database Integration**
-   - Supabase/PostgreSQL with pgvector
-   - Document storage and retrieval
-   - Metadata management
-
-3. **Memory System**
-   - Short-term conversation memory
-   - Long-term memory extraction and storage
-   - Memory deduplication mechanism
-
-4. **AI Agent**
-   - LLM integration (with both local and cloud options)
-   - Tool selection and execution
-   - Agentic RAG integration
-
-5. **Agent Tools**
-   - Web search
-   - Image analysis
-   - Code execution
-   - SQL query generation and execution
-
-6. **Basic User Interface**
-   - Streamlit-based chat interface
-   - Session management
-
-## Development Phases
-
-The project is organized into five major development phases:
-
-### Phase 1: Core RAG Pipeline
-Build the foundation for document processing, text chunking, embedding generation, and vector database integration.
-
-### Phase 2: Memory System
-Implement short-term and long-term memory systems with deduplication.
-
-### Phase 3: Agent Implementation
-Create the AI agent framework with model abstraction, tool registry, and execution logic.
-
-### Phase 4: Agent Tools
-Develop various tools for the agent including document tools, web tools, and utility tools.
-
-### Phase 5: Basic User Interface
-Build a simple Streamlit interface for interacting with the agent.
+1.  **AI Agent**: Integrates with an LLM (configurable for local or cloud).
+2.  **Terminal User Interface**: A basic command-line interface for interacting with the agent.
 
 ## Environment Configuration
 
-The system will use environment variables for configuration, allowing flexibility in deployment scenarios:
+The system will use environment variables for configuration:
 
-```python
+```
 # Base URL for the OpenAI compatible instance
 LLM_BASE_URL=
 
@@ -94,67 +40,36 @@ LLM_API_KEY=
 
 # The LLM you want to use for the agents.
 LLM_CHOICE=
-
-# Base URL for the OpenAI compatible instance that has embedding models
-EMBEDDING_BASE_URL=
-
-# API key for your embedding model provider
-EMBEDDING_API_KEY=
-
-# The embedding model you want to use for RAG
-EMBEDDING_MODEL_CHOICE=
-
-# Supabase configuration
-SUPABASE_URL=
-SUPABASE_SERVICE_KEY=
 ```
 
-## File Structure
+## File Structure (Iteration 1)
 
 ```
-ai-agent-mastery/
-├── .env.example               # Example environment variables
-├── pytest.ini                 # Pytest configuration
-├── requirements.txt           # Project dependencies
-├── README.md                  # Project documentation
-├── PLANNING.md                # This planning document
-├── TASKS.md                   # Implementation tasks
-├── agent.py                   # Main agent implementation
-├── prompt.py                  # Prompt templates
-├── tools.py                   # Agent tools
-├── streamlit_ui.py            # Streamlit user interface
-├── tests/                     # Test directory
-│   ├── test_agent.py          # Agent tests
-│   ├── test_tools.py          # Tools tests
-├── RAG_Pipeline/              # RAG Pipeline components
-│   ├── common/                # Common RAG functionality
-│   │   ├── db_handler.py      # DB operations for RAG
-│   │   ├── text_processor.py  # Functions to prep text for vector DB
-│   │   └── tests/             # Tests for common components
-│   ├── Google_Drive/          # Google Drive integration
-│   │   ├── main.py            # Entrypoint script to start the Google Drive RAG pipeline
-│   │   ├── drive_watcher.py   # Main logic to watch for Google Drive changes and insert into the vector DB
-│   │   └── tests/             # Tests for Google Drive components
-│   └── Local_Files/           # Local file processing
-│   │   ├── main.py            # Entrypoint script to start the local file RAG pipeline
-│   │   ├── drive_watcher.py   # Main logic to watch for local file changes and insert into the vector DB
-│   │   └── tests/             # Tests for local file RAG components
+.
+├── .env.example
+├── requirements.txt
+├── README.md
+├── PLANNING.md
+├── agent.py           # Main agent implementation
+├── cli.py             # Terminal user interface
+└── tests/
+    └── test_agent.py
 ```
 
 ## Testing Strategy
 
-Our testing approach covers testing individual components in isolation to start.
+Unit tests will validate the initialization of the agent and the UI. User testing will involve running the agent and having a basic conversation.
 
-## Future Enhancements
+---
 
-The following enhancements are planned for future iterations of the course:
+## Future Iterations
 
-1. **Advanced React-based Frontend**
-   - More interactive UI components
-   - Better visualization of RAG results
-   - Enhanced file management
+### Iteration 2: Adding Memory
+*   **Goal**: Make the agent stateful and conversational.
+*   **Functionality**: The agent can remember information from earlier in the same conversation.
+*   **Testing**: Unit tests for memory integration. User testing by asking the agent to recall previously mentioned facts.
 
-2. **Containerization with Docker**
-   - Docker setup for development environment
-   - Docker Compose for multi-container deployment
-   - Container orchestration for production
+### Iteration 3: Adding Web Search
+*   **Goal**: Give the agent its first tool to access external knowledge.
+*   **Functionality**: The agent can answer questions about recent events or topics outside its training data.
+*   **Testing**: Unit tests for the web search tool. User testing to confirm the agent uses the tool correctly.
