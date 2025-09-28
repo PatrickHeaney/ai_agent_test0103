@@ -119,11 +119,17 @@ If the agent responds, congratulations! The core conversational loop is working.
 
 `review the lesson_{{issue_title}}.md files and 1, verify the codebase addresses them adhereing to @gemini.md.  Then 2 update @PLANNING.md, @TASK.md, and @README.md so an AI coding assistant does not recreate these issues when using these files in a template.`
 ### Apply Lessons Learned to the _new_prj
-`i demonstrated the start_clone_create.md process and created a {{new project}} with learned lessons  here, https://github.com/PatrickHeaney/{{new project}}.git.  Add this repository as a submodule and examine it to help improve this process.`
+#### Step 1: Add successful project as Submodule
 
-`Your task is to perform a upgrade on the _new_prj instructional template. The last usage of the template revealed lessons that need to be applied. Your
-goal is to fix these instructions based on the lessons learned from the ai_agent_test0103 project.
+Your task is to perform a upgrade on the _new_prj instructional template. The last usage of the template revealed lessons that need to be applied. Your
+goal is to fix these instructions based on the lessons learned from the {{most_recent_test}} project.
 
-First, add the successfully completed ai_agent_test0103 project as a new submodule. This will serve as a complete, working reference for the corrected implementation.
+First, add the successfully completed {{most_recent_test}} project as a new submodule. This will serve as a complete, working reference for the corrected implementation.
 
-git submodule add https://github.com/PatrickHeaney/ai_agent_test0103.git example_code/ai_agent_test0103`
+git submodule add https://github.com/PatrickHeaney/ai_agent_test0103.git example_code/{{most_recent_test}}`
+
+#### Step 2: Review Lessons Learned and create Upgrade Plan
+
+your next task is to review all the lesson_* files summarize then create an upgrade_plan0104.md file and save it in the @1_backlog/ folder.  then review and    │
+│    update the @start_clone_create.md, @PLANNING.md, @TASK.md, and @README.md so that these issues are not create again by a new ai coading agent assiged to build │
+│     out ai_agen_test0104.  The goal is that these 4 files, plus @GEMINI.md will enable an ai coding assistant to implmeent iteration 1 of @idea.md
